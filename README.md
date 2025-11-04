@@ -19,32 +19,15 @@ Provide contextual and multi-agent feedback on CV and SOP files (PDF/Word), ensu
 | Component      | Tool/Library         |
 |----------------|----------------------|
 | Backend        | Python               |
-| Grammar Checker |    Gramformer       | 
-| LLM Framework  | LangChain            |
+| Grammar Checker |     Prompt          | 
 | NLP Models     | OpenAI API (initially), HuggingFace (later for open-source options) |
 | PDF/Doc Reader | PyMuPDF              |
-| UI             | Streamlit / Gradio   |
+| UI             | Streamlit            |
 | Dataset        | Real or synthetic SOPs and CVs (anonymized or fake examples) |
 
 ---
 
-## ❌ No Model Training Required
 
-PathwayAgent **does not require model training**.
-
-Instead, it leverages:
-
-- **Pretrained LLMs** (e.g., OpenAI GPT-4, Claude, Mistral)
-- **LangChain agents** to orchestrate modular tasks
-- **Context injection** to guide feedback (e.g., IP Paris guidelines, SOP writing rules)
-- **Prompt engineering** to simulate domain-aware expert feedback (few-shot prompting or CoTs...)
-
-This makes the system:
-- Lightweight and fast to prototype
-- Easily extendable to other universities or programs
-- Maintains high reliability and explainability
-
----
 
 ## 📌 Project Roadmap
 
@@ -65,11 +48,7 @@ This makes the system:
 
 ### 🚧 **Step 2: Multi-Agent Feedback with LangChain**
 
-- **LangChain Agents**:
-  - Modular agents performing specific review tasks
-  - Use tools or chains (e.g., grammar corrector, logic checker)
-
-- **Agents to include**:
+- **Agents included**:
   - 📝 **Grammar & Style Agent**
   - 🔗 **Logic & Coherence Agent**
   - 🎯 **Guideline Alignment Agent**:
@@ -84,7 +63,7 @@ This makes the system:
 - interactive inteview with LLM as jury for preparing motivation interview
 - Feedback rating mechanism
 - NER-based anonymization (Spacy / HF pipelines)
-- Open-source model backend (e.g., Mistral, LLaMA2, Mixtral)
+- Open-source model backend 
 - Feedback summary generator
 - Personalization using applicant metadata
 
