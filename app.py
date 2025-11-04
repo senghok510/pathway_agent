@@ -1,4 +1,3 @@
-# app.py
 
 import streamlit as st
 from agents import AgentManager
@@ -10,7 +9,7 @@ from agents import PDFTextAgent
 load_dotenv()
 
 
-# --- Design Tokens & Theming ---
+
 def get_design_tokens(mode: str):
     light = {
         "mode": "light",
@@ -314,7 +313,7 @@ def inject_theme_css(tokens: dict):
     </style>
     """, unsafe_allow_html=True)
 
-# --- Navigation Pills Renderer ---
+
 def render_nav():
     if "active_page" not in st.session_state:
         st.session_state.active_page = "Home"
@@ -335,7 +334,7 @@ def render_nav():
     st.markdown("</div>", unsafe_allow_html=True)
     return st.session_state.active_page
 
-# --- Revised main() to use new theme & nav ---
+
 def main():
     st.set_page_config(page_title="Multi-Agent AI System", layout="wide")
 
@@ -383,7 +382,7 @@ def main():
     elif active == "Text Anonymizer":
         text_anonymizer_section(agent_manager)
 
-# ---------- Home ----------
+
 def render_home():
     with st.container():
         st.markdown("<div class='hero-box'>", unsafe_allow_html=True)
@@ -420,7 +419,7 @@ def render_home():
             """
         )
 
-# ---------- Grammar Tool ----------
+
 def grammar_checking_section(agent_manager):
     st.header("Grammar Tool")
     st.caption("Standalone grammar normalization (no anonymization or recommendations).")
@@ -455,7 +454,7 @@ def grammar_checking_section(agent_manager):
     if col_c.button("Clear"):
         st.session_state["grammar_text"] = ""
 
-# ---------- CV Recommender ----------
+
 def cv_recommender_section(agent_manager):
     st.header("CV Recommender")
     st.caption("Pipeline: Grammar → Anonymization → Structured Recommendations.")
@@ -512,7 +511,7 @@ def cv_recommender_section(agent_manager):
             anonymized = None
             recommendations = None
 
-            # Step 1 Grammar
+            #grammar
             with st.spinner("Step 1/3: Grammar normalization"):
                 try:
                     grammar_corrected = _ensure_str(grammar_agent.execute(raw_text))
@@ -523,7 +522,7 @@ def cv_recommender_section(agent_manager):
                     logger.error(e)
                     return
 
-            # Step 2 Anonymization
+            #anonymization
             with st.spinner("Step 2/3: Anonymizing"):
                 try:
                     anonymized = _ensure_str(anonymizer_agent.execute(grammar_corrected))
@@ -534,7 +533,7 @@ def cv_recommender_section(agent_manager):
                     logger.error(e)
                     return
 
-            # Step 3 Recommendations
+            #recommendations
             with st.spinner("Step 3/3: Generating recommendations"):
                 try:
                     recommendations = recommender_agent.execute(anonymized)
@@ -560,10 +559,10 @@ def cv_recommender_section(agent_manager):
                         st.markdown("**Recommended:**")
                         st.write(sec['recommended'] if sec['recommended'].strip() else "✅ No change needed")
             else:
-                # Fallback raw display
+               
                 st.markdown(rec_text)
 
-            # Downloads
+            
             dl_col1, dl_col2, dl_col3 = st.columns(3)
             if anonymized:
                 dl_col1.download_button(
@@ -587,7 +586,7 @@ def cv_recommender_section(agent_manager):
         else:
             st.info("Run the pipeline to view outputs here.")
 
-# ---------- Text Anonymizer ----------
+
 def text_anonymizer_section(agent_manager):
     st.header("Text Anonymizer")
     st.caption("Applies anonymization after grammar normalization.")
@@ -621,7 +620,7 @@ def text_anonymizer_section(agent_manager):
     if col2.button("Clear"):
         st.session_state["anon_text"] = ""
 
-# ---------- Helper Functions ----------
+
 def _ensure_str(maybe):
     if isinstance(maybe, str):
         return maybe
@@ -629,7 +628,7 @@ def _ensure_str(maybe):
         return str(maybe.content)
     return str(maybe)
 
-# NEW: Parser for formatted CV recommendation blocks
+
 import re
 def parse_cv_recommendations(rec_text: str):
     """
